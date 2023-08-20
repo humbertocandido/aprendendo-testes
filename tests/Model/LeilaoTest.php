@@ -4,6 +4,7 @@ namespace Tests\Model;
 use Alura\Leilao\Model\Lance;
 use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Model\Usuario;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 class LeilaoTest extends TestCase
@@ -20,17 +21,21 @@ class LeilaoTest extends TestCase
 
     public function test_lances_seguidos()
     {
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Ofertante não pode enviar 2 lances seguidos!');
+
         $leilaoComUmLance = new Leilao('Camaro Amarelo');
         $leilaoComUmLance->recebeLance(new Lance(new Usuario('João'), 1000));
         $leilaoComUmLance->recebeLance(new Lance(new Usuario('João'), 5000));
 
-        self::assertCount(1, $leilaoComUmLance->getLances());
-        self::assertEquals(1000, $leilaoComUmLance->getLances()[array_key_last($leilaoComUmLance->getLances())]->getValor());
     }
 
     
     public function test_maximo_5_lances_por_usuario()
     {   
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Ofertante não pode enviar mais que 5 lances por leilão!');
+
         $leilao = new Leilao('Camaro Amarelo');
         $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
         $leilao->recebeLance(new Lance(new Usuario('Maria'), 1200));
@@ -44,9 +49,6 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance(new Usuario('Maria'), 1500));
 
         $leilao->recebeLance(new Lance(new Usuario('João'), 2000));
-
-        self::assertCount(10, $leilao->getLances());
-        self::assertEquals(1500, $leilao->getLances()[array_key_last($leilao->getLances())]->getValor());
     }
 
     

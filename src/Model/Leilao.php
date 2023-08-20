@@ -17,23 +17,26 @@ class Leilao
 
     public function recebeLance(Lance $lance) : void
     {
-        if (!$this->validaUltimoLance($lance)) return;
+        $this->validaUltimoLance($lance);
         if ($this->validaSeTemCincoLances($lance->getUsuario())) return;
         $this->lances[] = $lance;
     }
 
-    
-    private function validaUltimoLance($lance) : bool
+    /**
+     * @throws \DomainException('Ofertante não pode enviar 2 lances seguidos!');
+     * */ 
+    private function validaUltimoLance($lance) : void
     {
         if (!empty($this->lances)) {
             $ultimoLance = $this->lances[array_key_last($this->lances)];
-            if ($ultimoLance->getUsuario() == $lance->getUsuario()) return false;
+            if ($ultimoLance->getUsuario() == $lance->getUsuario()) 
+                throw new \DomainException('Ofertante não pode enviar 2 lances seguidos!');
         }
-
-        return true;
     }
 
-    
+    /**
+     * @throws \DomainException
+     * */ 
     private function validaSeTemCincoLances($usuario)
     {   
         $qtd = 0;
@@ -42,7 +45,9 @@ class Leilao
             return $qtd;
         }, 0);
 
-        return $totalDeLancesDeUsuario >= 5;
+        if ($totalDeLancesDeUsuario >= 5) {
+            throw new \DomainException('Ofertante não pode enviar mais que 5 lances por leilão!');
+        }
     }
 
     /**
