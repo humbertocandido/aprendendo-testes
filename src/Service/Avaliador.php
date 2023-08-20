@@ -16,7 +16,7 @@ class Avaliador
 
     public function avalia(Leilao $leilao): void
     {
-        if (!$leilao->getLances()) throw new \DomainException('Não foi dado nenhum lance!');
+        if (!$leilao->getLances()) throw new \DomainException('Não é possível avaliar leilão sem nenhum lance ofertado!');
 
         foreach ($leilao->getLances() as $lance) {
             if ($lance->getValor() >= $this->maiorValor)

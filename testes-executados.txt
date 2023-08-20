@@ -1,6 +1,6 @@
 Leilao (Tests\Model\Leilao)
- [x] Total lances e maior lance with data set "leilão 1 lance"
- [x] Total lances e maior lance with data set "leilão 2 lances"
+ [x] Total lances e maior lance with data set "1-lance"
+ [x] Total lances e maior lance with data set "2-lances"
  [x] Lances seguidos
  [x] Maximo 5 lances por usuario
 

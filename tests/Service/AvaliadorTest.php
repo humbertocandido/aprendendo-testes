@@ -35,6 +35,7 @@ class AvaliadorTest extends TestCase
     public function test_se_avaliador_joga_exception_quando_leilao_sem_lances()
     {
         self::expectException(DomainException::class);
+        self::expectExceptionMessage('Não é possível avaliar leilão sem nenhum lance ofertado!');
 
         $leilao = new Leilao('Uma descrição de leilão sem lance');
 
