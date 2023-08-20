@@ -1,0 +1,18 @@
+Leilao (Tests\Model\Leilao)
+ [x] Total lances e maior lance with data set "leilão 1 lance"
+ [x] Total lances e maior lance with data set "leilão 2 lances"
+ [x] Lances seguidos
+ [x] Maximo 5 lances por usuario
+
+Avaliador (Tests\Service\Avaliador)
+ [x] Se pegou maior lance with data set "Dados em ordem crescente"
+ [x] Se pegou maior lance with data set "Dados em ordem decrescente"
+ [x] Se pegou maior lance with data set "Dados em ordem aleatória"
+ [x] Se avaliador joga exception quando leilao sem lances
+ [x] Se menor lance esta correto with data set "Dados em ordem crescente"
+ [x] Se menor lance esta correto with data set "Dados em ordem decrescente"
+ [x] Se menor lance esta correto with data set "Dados em ordem aleatória"
+ [x] 3 maiores lances with data set "Dados em ordem crescente"
+ [x] 3 maiores lances with data set "Dados em ordem decrescente"
+ [x] 3 maiores lances with data set "Dados em ordem aleatória"
+
