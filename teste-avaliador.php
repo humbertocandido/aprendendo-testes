@@ -5,6 +5,14 @@ use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Model\Usuario;
 use Alura\Leilao\Service\Avaliador;
 
+/** 
+ * Para fins didáticos esse é um teste com o objetivo 
+ * de verificar se o último e maior lance será o lance 
+ * que a classe avaliador irá pegar.
+ * Não estou utilizando o phpunit por será demonstrado apenas 
+ * como o ciclo de um teste deve funcionar.  
+ * */ 
+
 require 'vendor/autoload.php';
 
 // Arrange - Given
