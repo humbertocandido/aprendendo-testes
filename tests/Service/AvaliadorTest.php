@@ -72,7 +72,22 @@ class AvaliadorTest extends TestCase
         self::assertEquals(1000, $maioresLances[2]->getValor());
     }
 
-    
+    /** 
+     * @dataProvider criarLeilaoEmOrdemCrescente
+     * @dataProvider criarLeilaoEmOrdemDecrescente
+     * @dataProvider criarLeilaoEmOrdemAleatoria
+     * */ 
+    public function test_se_leilao_finalizado_nao_pode_ser_avaliado(Leilao $leilao)
+    {
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Leilão finalizado não pode ser avaliado!');
+
+        $leilao->finalizar();
+
+        $avaliador = new Avaliador;
+        $avaliador->avalia($leilao);
+    }
+
     public static function criarLeilaoEmOrdemCrescente()
     {
         $leilao = new Leilao('Uma descrição para o leilão.');

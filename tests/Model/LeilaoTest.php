@@ -4,6 +4,7 @@ namespace Tests\Model;
 use Alura\Leilao\Model\Lance;
 use Alura\Leilao\Model\Leilao;
 use Alura\Leilao\Model\Usuario;
+use Alura\Leilao\Service\Avaliador;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +52,19 @@ class LeilaoTest extends TestCase
         $leilao->recebeLance(new Lance(new Usuario('João'), 2000));
     }
 
-    
+    /**
+     * @dataProvider criandoArrayComLances
+     * */ 
+    public function test_se_finalizado_pode_receber_lances($qtd, Leilao $leilao, $ultimoLance)
+    {
+        self::expectException(\DomainException::class);
+        self::expectExceptionMessage('Leilão finalizado não pode receber lances!');
+
+        $leilao->finalizar();
+
+        $leilao->recebeLance(new Lance(new Usuario('teste'), 5000));
+    }
+
     public static function criandoArrayComLances()
     {
         $leilaoComUmLance = new Leilao('Camaro Amarelo');

@@ -8,15 +8,20 @@ class Leilao
     private $lances;
     /** @var string */
     private $descricao;
+    /** @var bool */ 
+    private $finalizado;
 
     public function __construct(string $descricao)
     {
         $this->descricao = $descricao;
         $this->lances = [];
+        $this->finalizado = false;
     }
 
     public function recebeLance(Lance $lance) : void
     {
+        if ($this->estaFinalizado()) throw new \DomainException('Leilão finalizado não pode receber lances!');
+
         $this->validaUltimoLance($lance);
         if ($this->validaSeTemCincoLances($lance->getUsuario())) return;
         $this->lances[] = $lance;
@@ -37,7 +42,7 @@ class Leilao
     /**
      * @throws \DomainException
      * */ 
-    private function validaSeTemCincoLances($usuario)
+    private function validaSeTemCincoLances($usuario) : void
     {   
         $qtd = 0;
         $totalDeLancesDeUsuario = array_reduce($this->lances, function($qtd, Lance $lance) use ($usuario) {
@@ -56,5 +61,16 @@ class Leilao
     public function getLances(): array
     {
         return $this->lances;
+    }
+
+    public function finalizar() : void
+    {
+        $this->finalizado = true;
+    }
+
+    
+    public function estaFinalizado() : bool
+    {
+        return $this->finalizado;
     }
 }
